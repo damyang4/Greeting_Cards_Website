@@ -18,7 +18,7 @@ header {
     padding: 10px 10px 0 10px;
     position: fixed;
     top: 0;
-    z-index: 3;  /* on top of the image */
+    z-index: 3;  
 }
 
 header img {
@@ -101,11 +101,11 @@ section p {
 }
 
 .prev {
-  left: 35px; /* or -10px to move outside the image */
+  left: 35px; 
 }
 
 .next {
-  right: 35px; /* or -10px */
+  right: 35px; 
 }
 
 /* buttons with images */
@@ -252,5 +252,161 @@ footer nav a {
 }
 
 footer nav a:hover {
-  color: #ffcc00; /* цвят при посочване */
+  color: #ffcc00; 
+}
+
+
+/* === CARD BUILDER STYLING === */
+.card-builder{
+  display:flex;
+  gap:2rem;
+  padding:120px 2rem 2rem; 
+  flex-wrap:wrap;
+}
+
+
+#cardPreview{ box-sizing:border-box; }
+
+.preview-column, .controls-column{
+  flex:1 1 350px;
+}
+
+/* preview area */
+.card-preview{
+  width:auto;
+  height:auto;
+  margin:0 auto;
+  background:#ffe0e6;
+  border:3px solid #333745;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-width:200px;   
+  min-height:250px;
+  max-width:1200px;   
+  max-height:900px;
+
+  resize: both;       
+  overflow: auto;     
+  box-sizing: border-box; 
+}
+
+
+.text-el{
+  position:absolute;
+  font-weight:bold;
+  color:#333745;
+  text-align:center;
+  padding:0 5px;
+  white-space: pre-wrap; 
+}
+
+.img-el{
+  position:absolute;
+  max-width:none;
+  max-height:200%;
+}
+
+.hidden{display:none;}
+
+.pos-btns button{margin:2px 4px;}
+
+.action-btns{
+  margin-top:1rem;
+  display:flex;
+  flex-direction:row;
+  gap:.3rem;
+}
+
+/* === make preview bigger === */
+.preview-column.wide{
+  flex:1 1 500px;          
+}
+.card-preview{
+  width:450px;
+  height:600px;
+}
+
+
+/* inner border (greeting-card frame) */
+.card-preview::before{
+  overflow:hidden;
+  content:"";
+  position:absolute;
+  inset:15px;              /* frame thickness */
+  border:2px solid rgba(0,0,0,0.25); /* darker than bg */
+  pointer-events:none;
+  border-radius:8px;
+}
+
+/* form layout */
+.form-group{
+  margin-bottom:1rem;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.6rem;
+}
+
+.form-group > label{
+  flex:0 0 auto;
+  font-weight:bold;
+}
+
+textarea,#fontSelect,#fontSize,#bgColor,#imgSelect,#imgSize{
+  flex:1 1 140px;
+}
+
+/* center big buttons */
+.action-btns.center{
+  align-items:center;
+justify-content: center;
+gap: 3rem;    /* horizontal */
+}
+
+.action-btns.center .small-btn{
+  width:260px;          
+  font-size:1.1rem;
+}
+
+/* enlarge buttons on larger screens */
+@media (min-width:992px){
+  .small-btn{
+    width:320px;
+    height:100px;
+    font-size:1.3rem;
+  }
+}
+
+/* sticker thumbs */
+.sticker-gallery{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+.sticker-gallery img{
+  width:48px;
+  height:48px;
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:transform .2s;
+}
+.sticker-gallery img:hover{
+  transform:scale(1.1);
+  border-color:#ff69b4;
+}
+
+/* sticker */
+.sticker-el{
+  position:absolute;
+  width:80px;          /* initial size */
+  cursor:move;
+  user-select:none;
+  z-index:5;
+}
+
+.sticker-el.selected{
+  outline: 2px dashed #ff69b4;
+  outline-offset: 2px;
 }

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Създай картичка</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<!-- за CSV -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<!-- dom-to-image – прави PNG от DOM и решава CORS -->
+<script src="https://cdn.jsdelivr.net/npm/dom-to-image-more@3.2.0/dist/dom-to-image-more.min.js"></script>
+
+
+
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="grid-container">
+    <img src="img/logo.jpeg" alt="лого" width="150">
+    <h1>Система за поздравителни картички</h1>
+    <nav>
+      <a href="homepage.html">Начало</a>
+      <a href="create-card.html">Създай картичка</a>
+      <a href="bulk-send.html">Масово изпращане</a>
+    </nav>
+  </header>
+
+  <main class="card-builder">
+    <!-- ==== LEFT: Live preview ==== -->
+    <section class="preview-column wide">
+      <h2>Преглед</h2>
+      <div id="cardPreview" class="card-preview">
+        <!-- default state -->
+        <img id="cardImg" src="img/card1.jpg" alt="декорация" class="img-el hidden">
+        <div id="cardText" class="text-el">Happy Birthday!</div>
+      </div>
+    </section>
+
+    <!-- ==== RIGHT: Controls ==== -->
+<section class="controls-column">
+  <h2>Персонализиране</h2>
+
+  <!-- 0. Recipient -->
+<div class="form-group">
+  <label for="recipientEmail">Email на получателя</label>
+  <input type="email" id="recipientEmail" placeholder="ivan@example.com">
+
+  <label for="subjectInput">Тема</label>
+  <input type="text" id="subjectInput" placeholder="Персонална картичка">
+</div>
+
+  <!-- 1. Message -->
+  <div class="form-group">
+    <label for="msgInput">Текст на картичката</label>
+    <textarea id="msgInput" rows="2">Happy Birthday!</textarea>
+  </div>
+
+  <!-- 2. Font + size -->
+  <div class="form-group">
+    <label for="fontSelect">Шрифт</label>
+    <select id="fontSelect">
+      <option value="Trebuchet MS">Trebuchet MS</option>
+      <option value="Courier New">Courier New</option>
+      <option value="Georgia">Georgia</option>
+    </select>
+
+    <label for="fontSize">Размер (px)</label>
+    <input type="number" id="fontSize" min="10" max="48" value="16">
+  </div>
+
+  <!-- 3. Position -->
+  <div class="form-group">
+    <label>Позиция на текста</label>
+    <div class="pos-btns">
+      <button type="button" data-pos="top">Горе</button>
+      <button type="button" data-pos="center">Център</button>
+      <button type="button" data-pos="bottom">Долу</button>
+	  <!--card-->
+		</div class="pos-btns">
+		<label for="bgColor">Цвят на картичката</label>
+		<input type="color" id="bgColor" value="#ffe0e6">
+		</div>
+    </div>
+  </div>	
+
+
+  <!-- 5. Decoration image -->
+  <div class="form-group">
+    <label for="imgSelect">Изображение</label>
+    <select id="imgSelect">
+      <option value="">— без —</option>
+      <option value="img/deco-balloons.png">Балони</option>
+      <option value="img/deco-flowers.png">Цветя</option>
+      <option value="img/deco-love.png">Обич</option>
+      <option value="img/deco-template.png">Картинка</option>
+    </select>
+
+    <label for="imgSize">Размер на изображението (%)</label>
+    <input type="range" id="imgSize" min="20" max="180" value="60">
+  </div>
+  
+  <!-- 6. Stickers (multiple) -->
+<div class="form-group">
+  <label>Стикери</label>
+  <div id="stickerGallery" class="sticker-gallery">
+    <!-- tiny thumbnails; add/remove as you like -->
+    <img src="img/stk-heart.png"  alt="heart"   data-src="img/stk-heart.png">
+    <img src="img/stk-star.png"   alt="star"    data-src="img/stk-star.png">
+    <img src="img/stk-flower.svg" alt="flower"  data-src="img/stk-flower.svg">
+  </div>
+  <small>Кликни върху стикер, за да го добавиш към картичката.</small>
+</div>
+
+<!-- Sticker resize (hidden until a sticker is selected) -->
+<div id="stickerSizeBlock" class="form-group" style="display:none;">
+  <label for="stickerSize">Размер на избрания стикер (%)</label>
+  <input type="range" id="stickerSize" min="20" max="400" value="100">
+  <button id="delStickerBtn" type="button" title="Премахни стикера">🗑️</button>
+</div>
+
+  
+  <!-- 6. Card size -->
+<div class="form-group">
+  <label for="cardW">Ширина (px)</label>
+  <input type="number"  id="cardW" min="200" max="800" value="450">
+
+  <label for="cardH">Височина (px)</label>
+  <input type="number"  id="cardH" min="250" max="1000" value="600">
+</div>
+
+
+
+      <!-- ACTION BUTTONS -->
+       <div class="action-btns center">
+    <button id="saveBtn" class="small-btn">💾 Запиши</button>
+    <button id="sendBtn" class="small-btn">📧 Изпрати</button>
+    <button id="saveCsvBtn" class="small-btn">Запази CSV</button>
+  </div>
+</section>
+  </main>
+  
+  <!-- === CSV upload === -->
+<div class="form-group">
+  <label for="csvInput"><strong>Импортирай CSV</strong></label>
+  <input type="file" id="csvInput" accept=".csv">
+</div>
+
+<!-- progress tracker -->
+<div id="bulkStatus" style="margin-top:.5rem;color:#555;font-family:sans-serif"></div>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <p>&copy; 2025 Система за поздравителни картички</p>
+    <nav>
+      <a href="help.html">Помощ</a>
+      <a href="contact.html">Контакти</a>
+      <a href="about.html">За нас</a>
+      <a href="privacy-policy.html">Политика за поверителност</a>
+    </nav>
+  </footer>
+
+  <script src="card-builder.js"></script>
+</body>
+</html>
