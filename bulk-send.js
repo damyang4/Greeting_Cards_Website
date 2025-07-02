@@ -286,7 +286,9 @@ async function sendAllCards() {
   progressText.textContent = `0% изпратени`;
 
   let successCount = 0;
-
+	
+  currentIndex = 0;
+  showCard(0);
   for (let i = 0; i < total; i++) {
     const recipient = parsedRows[i];
 

@@ -3,6 +3,7 @@
   /*  ---- DOM refs -- */
   const preview    = document.getElementById('cardPreview');
   const txt        = document.getElementById('cardText');
+  txt.style.whiteSpace = 'pre-wrap';
   const img        = document.getElementById('cardImg');
   const statusDiv = document.getElementById('bulkStatus');
 
@@ -225,6 +226,8 @@ async function inlineImages(node){
 
 /* ==== capture entire card – no cropping ==== */
 async function captureCard(format = 'png', filename = 'card', download = true)  {
+  const fam = getComputedStyle(txt).fontFamily;        // текущият
+  await document.fonts.load(`1em ${fam}`);             // гаранция че е ready
   await inlineImages(preview);
   const oldOverflow = preview.style.overflow;
   preview.style.overflow = 'hidden';
@@ -269,13 +272,14 @@ async function sendCard(to, subject, blob){
   const data = await blobToBase64(blob);
   const fileName = `card-${Date.now()}.png`;
 
-  const res = await fetch('http://localhost:3000/send-card', {      // absolute URL
+  const res = await fetch('send-card.php', {   
     method : 'POST',
     headers: { 'Content-Type': 'application/json' },
     body   : JSON.stringify({ to, subject, fileName, mime:'image/png', data })
   });
   if (!res.ok) throw new Error(await res.text());
 }
+
 
 
 /* ==== download ==== */
@@ -396,6 +400,11 @@ async function sendCard(to, subject, blob){
 
                 preview.appendChild(stk);
                 makeDraggable(stk);
+                stk.addEventListener('click', ev => {
+                  ev.stopPropagation();
+                  selectSticker(stk);
+});
+
               });
             }
 
@@ -443,7 +452,7 @@ document.getElementById('sendBtn').addEventListener('click', async () => {
 
   // Изпращаме към бекенда
   try {
-    const apiURL = 'http://localhost:3000/send-card';   // <-- абсолютен път
+    const apiURL = 'send-card.php';
     const res = await fetch(apiURL, {
       method : 'POST',
       headers: { 'Content-Type': 'application/json' },    

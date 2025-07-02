@@ -80,8 +80,8 @@ section p {
 }
 
 .slide {
-  width: 300px;
-  height: 400px;
+  width: 100%;
+  height: auto;
   display: block;
   margin: 0 auto;
   
