@@ -1,0 +1,484 @@
+/* Основни стилове за body */
+body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    box-sizing: content-box;
+    margin: 0;
+    color: #333745;
+    /* background-color: #fefefe; */
+    background-color: #fff0f6;
+}
+
+/* HEADER - същият стил като index.css */
+header {
+    width: 100%;
+    box-sizing: border-box;
+    display: grid;
+    justify-content: center;
+    column-gap: 10px;
+    grid-template-columns: auto auto;
+    background-color: rgb(255, 192, 203);
+    padding: 0px 10px 0 10px;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+}
+
+header img {
+    width: 100px;
+    height: auto;
+    grid-row: 1 / span 2;
+}
+
+header h1 {
+    height: 20px;
+    margin: 0px;
+    margin-top: 10px;
+    font-size: 2em;
+    grid-column: 2 / span 1;
+}
+
+header nav {
+    grid-column: 2 / span 1;
+}
+
+nav {
+    margin: 0px;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    font-size: 1.2em;
+}
+
+nav a:link, nav a:visited {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #333745;
+}
+
+nav a:hover, nav a:active {
+    cursor: pointer;
+    background-color: #333745;
+    color: white;
+}
+
+/* Основно оформление на секциите */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+section {
+    width: 100%;
+    max-width: 800px;
+    background: #fff;
+    padding: 24px 32px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+section > * {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Списък без точки, с персонализирана точка и разстояние */
+section ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+    display: block;
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+section ul li {
+    position: relative;
+    padding-left: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+section ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #d72660;
+    font-size: 1.2em;
+    line-height: 1;
+    top: 0;
+}
+
+/* Файл input */
+input[type="file"] {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 1px solid #f7b2b7;
+    padding: 6px 10px;
+    background: #fff0f6;
+    color: #333745;
+    transition: border 0.2s;
+}
+
+input[type="file"]:focus {
+    border: 2px solid #d72660;
+    outline: none;
+}
+
+/* Грешки */
+.error-msg {
+    color: #d72660;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Таблица за преглед */
+#previewTable {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #fff0f6;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(215,38,96,0.04);
+    min-height: 500px;
+}
+
+#previewTable tr {
+    height: 48px;
+}
+
+#previewTable th, #previewTable td {
+    height: 48px;
+    vertical-align: middle;
+    /* Ако искаш текстът да не се пренася */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #f7b2b7;
+    padding: 8px 12px;
+    text-align: left;
+     white-space: normal;      /* Позволява пренасяне на текста */
+    overflow-wrap: break-word; /* Пренася дълги думи */
+    text-overflow: unset;      /* Премахва многоточието */
+}
+
+#previewTable tr,
+#previewTable th,
+#previewTable td {
+    height: 48px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#previewTable th:nth-child(1),
+#previewTable td:nth-child(1) {
+    width: 25%;
+}
+
+#previewTable th:nth-child(2),
+#previewTable td:nth-child(2) {
+    width: 30%;
+}
+
+#previewTable th:nth-child(3),
+#previewTable td:nth-child(3) {
+    width: 45%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;       /* Позволява пренасяне на текста */
+    overflow-wrap: break-word; /* Пренася дълги думи */
+    text-overflow: unset;      /* Премахва многоточието */
+    max-width: 1px;            /* Позволява на table-layout: fixed да ограничи ширината */
+    word-break: break-word;    /* Пренася и много дълги думи */
+}
+
+#previewTable th {
+    background: #ffd6e0;
+    color: #d72660;
+    font-weight: 600;
+}
+
+#pagination {
+    text-align: center;
+    margin-top: 16px;
+    color: #d72660;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#pagination button {
+    background: #ffd6e0;
+    color: #d72660;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 0 2px;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 1px 4px rgba(215,38,96,0.07);
+}
+
+#pagination button.active,
+#pagination button:focus {
+    background: #d72660;
+    color: #fff;
+}
+
+#pagination button:hover:not(.active) {
+    background: #f7b2b7;
+    color: #d72660;
+}
+
+/* Template selector */
+#templateSelector {
+    display: flex;
+    gap: 24px;
+    margin: 16px 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#templateSelector label {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    transition: border 0.2s, box-shadow 0.2s;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff0f6;
+}
+
+#templateSelector input[type="radio"] {
+    display: none;
+}
+
+#templateSelector input[type="radio"]:checked + img {
+    border: 3px solid #d72660;
+    box-shadow: 0 0 12px #d7266033;
+}
+
+#templateSelector img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #ffd6e0;
+    margin-top: 4px;
+    transition: border 0.2s, box-shadow 0.2s;
+    background: #fff;
+}
+
+/* Картичка */
+.card {
+    width: 400px;
+    height: 250px;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #f7b2b7;
+    border-radius: 16px;
+    color: #333745;
+    font-family: inherit;
+    box-shadow: 0 0 10px rgba(215,38,96,0.08);
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff0f6;
+    overflow: hidden; /* Добави това */
+}
+
+.card h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+    word-break: break-word;     /* Позволява нови редове */
+    max-width: 100%;            /* Не излиза извън картичката */
+    /* text-align: center; */
+}
+
+/* Бутони за навигация */
+.prev, .next {
+    position: relative;
+    transform: translateY(-60%);
+    padding: 10px 18px;
+    cursor: pointer;
+    background-color: #ffd6e0;
+    color: #d72660;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0 8px;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 6px rgba(215,38,96,0.07);
+}
+
+.prev:hover, .next:hover {
+    background-color: #d72660;
+    color: #fff;
+}
+
+#cardIndexInfo {
+    font-weight: 500;
+    color: #d72660;
+    margin: 0 10px;
+}
+
+/* Основни бутони */
+button {
+    background: #d72660;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 6px;
+    transition: background 0.2s;
+    box-shadow: 0 2px 6px rgba(215,38,96,0.07);
+}
+
+button:hover, button:focus {
+    background: #333745;
+}
+
+#sendAllBtn {
+    display: block;
+    margin: 32px auto 0 auto;
+    font-size: 1.1rem;
+    padding: 14px 36px;
+    background: #f46036;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(244,96,54,0.09);
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#sendAllBtn:hover, #sendAllBtn:focus {
+    background: #d72660;
+}
+
+/* Прогрес бар */
+#progressContainer {
+    background: #fff0f6;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(215,38,96,0.07);
+}
+
+progress {
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffd6e0;
+    height: 20px;
+}
+
+progress::-webkit-progress-bar {
+    background: #ffd6e0;
+    border-radius: 8px;
+}
+
+progress::-webkit-progress-value {
+    background: #d72660;
+    border-radius: 8px;
+}
+
+progress::-moz-progress-bar {
+    background: #d72660;
+    border-radius: 8px;
+}
+
+/* Responsive секции */
+@media (max-width: 900px) {
+    section {
+        padding: 16px 4vw;
+    }
+}
+
+@media (max-width: 600px) {
+    section {
+        padding: 10px 2vw;
+    }
+    #templateSelector {
+        gap: 10px;
+    }
+    #templateSelector img {
+        width: 80px;
+        height: 54px;
+    }
+    .card {
+        width: 98vw;
+        min-width: 0;
+        height: auto;
+        padding: 10px;
+    }
+}
+
+.step-section.active { display: flex; flex-direction: column; }
+
+.step-section { display: none; }
+
+h2 {
+     margin-top: 0px;
+    /*margin-bottom: 0px; */
+}
+
+.back-arrow {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    background: none;
+    border: none;
+    color: #d72660;
+    font-size: 1.6em;
+    cursor: pointer;
+    z-index: 2;
+    padding: 0;
+    transition: color 0.2s, box-shadow 0.2s, background 0.2s;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-arrow:hover, .back-arrow:focus {
+    background: #ffd6e0;
+    color: #d72660;
+    box-shadow: 0 2px 8px rgba(215,38,96,0.10);
+    outline: none;
+}
+
+.step-section {
+    position: relative;
+}
